@@ -87,7 +87,7 @@
 
 - 透過使用 GPU 等運算單元，還可以加快找到公式的速度。
 
-【Reference】
+【References】
 
 1. [有趣的機器學習：最簡明入門指南](http://blog.jobbole.com/67616/)
 2. [零基礎入門深度學習 (1) - 感知器](https://www.zybuluo.com/hanbingtao/note/433855)
