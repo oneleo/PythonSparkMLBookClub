@@ -9,11 +9,11 @@
 
 > 因自身是機器學習初學者，此份作業參考各方資料並加入自己的理解，若有誤還請多指教（建立 Github Issue 來協助我修正），謝謝。
 
-### Spark RDD（Resilient Distributed Datasets）[04][05][06][08]
+### Spark RDD（Resilient Distributed Datasets）[04][05][06][08][39][40]
 
 1. RDD 資料儲存在叢集 Memory 內。使用 Lineage、Checkpoint 機制來進行容錯。
 2. Lineage：因 RDD 為 Immutable（被建立後即無法被修改）資料集，當某個 Memory 節點故障，RDD 可透過 Lineage 機制找回此故障節點 RDD 與其父代 RDD reference 間的關聯運算方式，經重新計算後取得失去的資料。
-3. Checkpoint：使用者可視所需（如高成本運算、Spark Streaming 中的 Update 操作等）指定 Checkpoint 節點，Checkpoint 節點會將 Memory 資料複製至檔案系統中，故障發生後據此節點恢復資料。但 RDD 於 20140831 無自動設置 Checkpoint 節點機制
+3. Checkpoint：使用者可視所需（如高成本運算、Spark Streaming 中的 Update 操作等）指定 Checkpoint 節點，Checkpoint 節點會將 Memory 資料複製至檔案系統中，故障發生後據此節點恢復資料。但 RDD 無自動設置 Checkpoint 節點機制。
 4. RDD 可進行「轉換（Transformation）」、「動作（Action）」及「持久化（Persistence）」三種操作。
 5. 「轉換（Transformation）」：透過 Lazy 算法（當 Action 進行時才會實際執行 Transformation）將當前 RDD 轉換傳遞至另一個 RDD 節點，但不會真正執行運算。如 reduceByKey 方法函數。
 6. 「動作（Action）」：在 RDD 上進行運算後，將結果傳回至 Spark 的驅動程序，或寫至檔案系統內。如 reduce 方法函數。
@@ -59,7 +59,7 @@
 ### Spark ML Pipeline[13][20][21]
 
 1. 受 Python Scikit-Learn 套件啟發，所設計機器學習架構。
-2. ML Pipeline 解決了 MLlib 多個訓練模型串接導致結構複雜的問題，ML Pipeline 可輕易實現 Ensemble（集成學習）[19]多個機器學習算法順序執行的思想。
+2. ML Pipeline 解決了 MLlib 多個訓練模型串接導致結構複雜的問題，ML Pipeline 可輕易實現 Ensemble（集成學習）[19]多個機器學習算法順序執行的思維。
 3. DataFrame：ML Pipeline 的訓練資料、測試資料、預測結果、資料的特徵向量、標籤等數據均儲存在 Spark DataFrame 中。
 4. Transformer：將一個 DataFrame 轉換至另一個 DataFrame，如將原始資料 DataFrame 轉換至特徵向量 DataFrame。
 5. Estimator：使用 fit 方法在 DataFrame 內執行 Transformer。一個機器學習演算法即一個 Estimator，會在 DataFrame 上進行訓練以取得新的 DataFrame。
@@ -84,7 +84,7 @@
 1. Spark DataFrame 受 Python Pandas 套件啟發，設計出 DataFrame 資料處理架構。
 2. Pandas 為 2009 年底開源的 Python 的數據分析 Library，提供 Series（處理時間序列數據）與 DataFrame（處理結構化數據）資料結構。
 3. Pandas DataFrame 可以擷取  JSON、CSV、Excel、HTML 或是其他資料庫來的資料。
-4. Pandas DataFrame 可以使用 Row 或 Column 存取資料，以快速進行如資料補值，去除空值或取代等資料的前處理。
+4. Pandas DataFrame 可以使用 Row 及 Column 存取資料，以快速進行如資料補值，去除空值或取代等資料的前處理。
 5. Pandas DataFrame 可以將處理後的資料存回至其他資料庫。
 
 ### Python Scikit-learn 套件[24]
@@ -103,7 +103,7 @@
 ### Apache Hadoop
 
 1. Apache Hadoop 是一款支援大型叢集內運作的資料密集型分散式應用程式。
-2. Hadoop 根據 Google 發表的 MapReduce 和 Google 檔案系統的論文自行實作而成。
+2. Hadoop 根據 Google 發表的 MapReduce 和 Google 檔案系統的論文實作而成。
 3. 所有的 Hadoop 模組都有一個基本假設，即硬體故障是常見情況，應該由框架自動處理。
 
 ### Hadoop HDFS
@@ -191,3 +191,5 @@
 - [36] 維基百科，「JDBC」，[https://zh.wikipedia.org/wiki/Java数据库连接](https://zh.wikipedia.org/wiki/Java%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5)
 - [37] 梁堰波，「InfoQ - 深入分析 Parquet 列式存儲格式」，[http://www.infoq.com/cn/articles/in-depth-analysis-of-parquet-column-storage-format](http://www.infoq.com/cn/articles/in-depth-analysis-of-parquet-column-storage-format)
 - [38] 仲浩，「CSDN 極客頭條 - 對比Pig、Hive和SQL，淺看大數據工具之間的差異」，[http://geek.csdn.net/news/detail/50849](http://geek.csdn.net/news/detail/50849)
+- [39] 雄雞，「spark RDD解密學習筆記」，[http://blog.csdn.net/pzw_0612/article/details/52745941](http://blog.csdn.net/pzw_0612/article/details/52745941)
+- [40]「伯樂在線 - Spark：一個高效的分佈式計算系統」，[http://blog.jobbole.com/47791/](http://blog.jobbole.com/47791/)
