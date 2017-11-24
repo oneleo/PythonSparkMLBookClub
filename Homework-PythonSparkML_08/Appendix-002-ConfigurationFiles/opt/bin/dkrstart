@@ -1,0 +1,149 @@
+#!/bin/bash
+#「-f」：該『檔名』是否存在且為檔案（file）。「!」：反向。「exit 0」：程式正常結束且返回 $0 變數。「exit 1」：程式錯誤結束且返回 $1 變數。
+[[ ! -f /opt/conf/hosts ]] && exit 1
+
+# 取得 /opt/conf/hosts Cluster 設計圖位置。
+CtnConf=/opt/conf/hosts
+
+# 把 /opt/conf/hosts 內的 \r 字元刪除，避免取值時出現不必要的字元。「\r」：Linux 的換行字元為 \n，Windows 的換行字元為\r\n，需避免 Linux 將 \r 當作有效字元。「sed」：「's/A/B/g' C」：將 C 檔內的 A 字串置換成 B。「$」：在行尾才算符合。「-i」：直接將取代結果寫回至 C 檔內。
+# 可以使用 $ cat $CtnConf | od -c 指令來查看檔案內是否有 \r 字元。
+sudo sed -i 's/\r$//g' $CtnConf
+
+# IPv4 的正則表達式。「x{1,3}」：連續 1 個到 3 個 x 就符合。「\.」：因「.」在正則表達式是特殊字元（表示一個任意字元），前加斜線「\.」表示用一般的字元來解釋。
+#「[1-9]」：表示 1 ~ 9 間的數字。「[1-9][0-9]」：10 ~ 99。「1[0-9][0-9]」：100 ~ 199。「2[0-4][0-9]」：200 ~ 249。「25[0-5]」：250 ~ 255。
+RegIp='(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])(\.(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])){3}'
+
+# Linux 目錄的正則表達式。「x?」：零個或 1 個 x 就符合。「^」：放在中括號外 ^[] 表示要緊連最前面，放在中括號內 [^] 表示符合此中括號內的條件都要排除。「\r」：Linux 的換行字元為 \n，Windows 的換行字元為\r\n，需避免 Linux 將 \r 當作有效字元。「x+」：x 至少要 1 個或多個才符合。
+RegPath='(/[^/ ]*)+/?'
+
+# 設置 Log 檔所在目錄位置。
+LogDir=/opt/logs
+
+# 設置 Log 檔路徑。
+LogFile="$LogDir/$HOSTNAME-root.log"
+
+# 若 $LogDir 目錄不存在就創建一個。「-d」：該『檔名』是否存在且為目錄。
+[[ ! -d $LogDir ]] && sudo mkdir -p $LogDir && sudo chmod 777 -R $LogDir
+# 製作空的 $LogFile 檔，並設置此檔有寫入權限。
+[[ ! -f $LogFile ]] && sudo touch "$LogFile" && sudo chmod 777 -R "$LogFile"
+
+# 將 $LogFile、$LogDir 變數寫入 $LogFile 內。「$(date)」：當下的時間。「$HOSTNAME」：目前的主機名稱。
+echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set LogFile = $LogFile" >> $LogFile 2>&1
+echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set LogDir = $LogDir" >> $LogFile 2>&1
+
+# 從 /opt/conf/hosts 設計圖中，將對映的 AppAdmin 值取出。在 Linux 裡使用者名稱不會超過 32 字元。
+AppAdmin=$(cat $CtnConf | grep -oP "^[ \t]*#[ \t]*appadmin[ \t]*=[ \t]*[0-9a-zA-Z_.][0-9a-zA-Z_.-]{0,31}" | cut -d '=' -f 2 | grep -oE '[0-9a-zA-Z_.][0-9a-zA-Z_.-]{0,31}' | head -n 1) \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set AppAdmin = $AppAdmin" >> $LogFile 2>&1
+
+DockerImage=$(cat $CtnConf | grep -oP "^[ \t]*#[ \t]*dockerimage[ \t]*=[ \t]*[0-9a-zA-Z\_\.\-\/\:]*" | cut -d '=' -f 2 | grep -oE '[0-9a-zA-Z\_\.\-\/\:]*' | head -n 1) \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set DockerImage = $DockerImage" >> $LogFile 2>&1
+
+# 判斷 $DockerImage 是否有值，有的話則將 Docker Image 更改成指定的版本，沒有的話則為 oneleo/worker:17.11。
+[[ -z $DockerImage ]] && DockerImage=oneleo/worker:17.11
+
+# 從 /opt/conf/hosts 設計圖中，將所有 Container 的 Hostname 取出。「sort」：將結果按升冪排序。「-u」：將重複的結果讓它只出現一次。
+CtnNames=$(cat $CtnConf | grep -oP "^[ \t]*$RegIp[ \t]*[0-9a-z][0-9a-z_.-]{0,63}" | grep -oE "[0-9a-z][0-9a-z_.-]{0,63}" | grep -vE "$RegIp" | sort -u)
+
+# 從 /opt/conf/hosts 設計圖中，將指定的 Hadoop Namenode 主機名稱 Hostname 取出。
+HdfsNameHost=$(cat $CtnConf | grep -oP "^[ \t]*#[ \t]*namenodehost[ \t]*=[ \t\'\"]*[0-9a-z][0-9a-z_.-]{0,63}" | grep -oP "=[ \t\'\"]*[0-9a-z][0-9a-z_.-]{0,63}" | grep -oP "[0-9a-z][0-9a-z_.-]{0,63}" | head -n 1) \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set HdfsNameHost = $HdfsNameHost" >> $LogFile 2>&1
+
+# 從 /opt/conf/hosts 設計圖中，將對映的 Hadoop 應用程式的家目錄值取出，依此類推。
+HadoopHome=$(cat $CtnConf | grep -oP "^[ \t]*#[ \t]*hadoophome[ \t]*=[ \t\'\"]*$RegPath" | cut -d '=' -f 2 | grep -oE "$RegPath" | head -n 1) \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set HadoopHome = $HadoopHome" >> $LogFile 2>&1
+
+SparkHome=$(cat $CtnConf | grep -oP "^[ \t]*#[ \t]*sparkhome[ \t]*=[ \t\'\"]*$RegPath" | cut -d '=' -f 2 | grep -oE "$RegPath" | head -n 1) \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set SparkHome = $SparkHome" >> $LogFile 2>&1
+
+# 計數器，若剛進入迴圈，則將 Container 的 Hostname 寫入 /opt/hadoop/etc/hadoop/slaves 及 /opt/spark/conf/slaves 內（若存在）。
+Counter=0 \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set Counter = $Counter" >> $LogFile 2>&1
+
+# 根據 /opt/conf/hosts 設計圖，將 Hadoop 叢集依序建立出來。
+for cn in $CtnNames
+do
+	# 若欲啟動的 Container 存在，則將之啟動，不存在，則建立新的一台。「docker ps」：列出目前有建立且啟動的 Container。「--all」：列出所有啟動及關閉的 Container。「--filter」：指定篩選條件。「--format」：顯示所有 Container 完整資訊並指定顯示包含字詞。
+	if ( [ "$(sudo docker ps --all --filter "name=$cn" --format '{{.Names}}' | tail -n 1)" == "$cn" ] ); then
+		# 「docker start」：將 Container 啟動。並將結果儲存至 $LogFile 檔內，及顯示在螢幕上。
+		sudo docker start "$cn" > /dev/null 2>&1 \
+		&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container $cn is started." >> $LogFile 2>&1 \
+		&& echo "Container $cn is started."
+
+		Counter=$[ $Counter + 1 ] && echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Counter now is $Counter" >> $LogFile 2>&1
+
+	# 若欲啟動的 Container 不存在，則建立新的一台。
+	else
+		# 「docker run」：建立新的 Container。並將結果儲存至 $LogFile 檔內，及顯示在螢幕上。
+		# 「-v A」：將非 AUFS 檔案系統的宿主目錄（預設會集中放在 /var/lib/docker/volumes/ 內）掛載至指定目錄 A。「-v A:B」：將宿主目錄 A 掛載至 Container 的目錄 B。「:z」：開通 CentOS SELinux 政策不允許 Container 存取空間，大 Z 只允許最後用此參數的 Container，小 z 允許所有使用此參數的 Container。「--hostname」：指定 Container 的 Hostname，只有 Container 看得到。「--name」：指定 Container 名稱來取代 ID，只有宿主看得到。「--cap-add=NET_ADMIN」：允許 Container 更改自身的網路設置。「-it」：分配 pseudo-TTY 綁在 Container 的標準輸入上，讓使用者可與之互動。「-d」：Container 建立後即推到背景執行。
+		# 注意：請將 core-site.xml 內的 hadoop.tmp.dir 參數設定成 "/home/${user.name}/hadoop"。
+		sudo docker run -v "/home/$AppAdmin/hadoop" -v /opt:/opt:z --hostname="$cn" --name="$cn" --cap-add=NET_ADMIN -itd "$DockerImage" /bin/bash \
+		&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container $cn is created." >> $LogFile 2>&1 \
+		&& echo "Container $cn is created."
+
+		# 將上述掛載的非 AUFS 目錄設定擁有者及寫入權限，並紀錄至 $LogFile 檔內。
+		sudo docker exec -it "$cn" chown "$AppAdmin":"$AppAdmin" "/home/$AppAdmin/hadoop" \
+		&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Change Container $cn's /home/$AppAdmin/hadoop directory owner to $AppAdmin." >> $LogFile 2>&1 \
+		&& sudo docker exec -it "$cn" chmod 775 "/home/$AppAdmin/hadoop" \
+		&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Change Container $cn's /home/$AppAdmin/hadoop directory authority to 775." >> $LogFile 2>&1
+
+		if ( [ "$cn" != "$HdfsNameHost" ] ); then
+			if ( [ $Counter -le 0 ] ); then
+				[[ -f "$HadoopHome/etc/hadoop/slaves" ]] && ( echo "$cn" > "$HadoopHome/etc/hadoop/slaves" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is overwritten to $HadoopHome/etc/hadoop/slaves file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is overwritten to $HadoopHome/etc/hadoop/slaves file."
+
+				[[ -f "$HadoopHome/etc/hadoop/hdfs.include" ]] && ( echo "$cn" > "$HadoopHome/etc/hadoop/hdfs.include" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is overwritten to $HadoopHome/etc/hadoop/hdfs.include file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is overwritten to $HadoopHome/etc/hadoop/hdfs.include file."
+
+				[[ -f "$HadoopHome/etc/hadoop/yarn.include" ]] && ( echo "$cn" > "$HadoopHome/etc/hadoop/yarn.include" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is overwritten to $HadoopHome/etc/hadoop/yarn.include file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is overwritten to $HadoopHome/etc/hadoop/yarn.include file."
+
+				[[ -f "$SparkHome/conf/slaves" ]] && ( echo "$cn" > "$SparkHome/conf/slaves" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is overwritten to $SparkHome/conf/slaves file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is overwritten to $SparkHome/conf/slaves file."
+			elif ( [ "$(cat "$HadoopHome/etc/hadoop/slaves" | grep -o "$cn")" == "" ] ); then
+				[[ -f "$HadoopHome/etc/hadoop/slaves" ]] && ( echo "$cn" >> "$HadoopHome/etc/hadoop/slaves" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is written to $HadoopHome/etc/hadoop/slaves file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is written to $HadoopHome/etc/hadoop/slaves file."
+
+				[[ -f "$HadoopHome/etc/hadoop/hdfs.include" ]] && ( echo "$cn" >> "$HadoopHome/etc/hadoop/hdfs.include" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is written to $HadoopHome/etc/hadoop/hdfs.include file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is written to $HadoopHome/etc/hadoop/hdfs.include file."
+
+				[[ -f "$HadoopHome/etc/hadoop/yarn.include" ]] && ( echo "$cn" >> "$HadoopHome/etc/hadoop/yarn.include" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is written to $HadoopHome/etc/hadoop/yarn.include file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is written to $HadoopHome/etc/hadoop/yarn.include file."
+
+				[[ -f "$SparkHome/conf/slaves" ]] && ( echo "$cn" >> "$SparkHome/conf/slaves" ) \
+				&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container Hostname $cn is written to $SparkHome/conf/slaves file." >> $LogFile 2>&1 \
+				&& echo "Container Hostname $cn is written to $SparkHome/conf/slaves file."
+			fi
+			Counter=$[ $Counter + 1 ] && echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Counter now is $Counter" >> $LogFile 2>&1
+			ContainerTemp="$(echo $cn)"
+		fi
+	fi
+done
+
+# 將 /opt/conf/hosts 覆蓋至宿主主機的 /etc/hosts，使之可進行名稱解析。
+sudo chmod -R 777 "/etc/hosts" \
+&& cat "$CtnConf" > "/etc/hosts" \
+&& sudo chmod -R 644 "/etc/hosts" \
+&& echo "Successfully overwrite file from $CtnConf to \"/etc/hosts\"." \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Successfully overwrite file from $CtnConf to \"/etc/hosts\"." >> $LogFile 2>&1
+
+# 將 Container 的 SSH 金鑰複製一份到宿主主機，使宿主主機及 Container SSH 互連時不需輸入密碼。
+mkdir -p "/home/$AppAdmin/.ssh" \
+&& sudo chown -R "$AppAdmin":"$AppAdmin" "/home/$AppAdmin/.ssh" && sudo chmod -R 777 "/home/$AppAdmin/.ssh" \
+&& sudo docker cp "$ContainerTemp":"/home/$AppAdmin/.ssh/id_rsa" "/home/$AppAdmin/.ssh/" \
+&& sudo docker cp "$ContainerTemp":"/home/$AppAdmin/.ssh/id_rsa.pub" "/home/$AppAdmin/.ssh/" \
+&& sudo cat "/home/$AppAdmin/.ssh/id_rsa.pub" > "/home/$AppAdmin/.ssh/authorized_keys" \
+&& sudo rm -rf "/home/$AppAdmin/.ssh/known_hosts" \
+&& sudo chown -R "$AppAdmin":"$AppAdmin" "/home/$AppAdmin/.ssh" \
+&& sudo chmod -R 700 "/home/$AppAdmin/.ssh" \
+&& echo "Successfully copy id_rsa, id_rsa.pub, id_rsa.pub from Container to \"/home/$AppAdmin/.ssh\"." \
+&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Successfully copy id_rsa, id_rsa.pub, id_rsa.pub from Container to \"/home/$AppAdmin/.ssh\"." >> $LogFile 2>&1
+
+# 將上述有使用到的臨時變數刪除。
+unset CtnConf RegIp RegPath LogDir LogFile AppAdmin CtnNames HdfsNameHost HadoopHome SparkHome Counter cn ContainerTemp

@@ -1,0 +1,57 @@
+#!/bin/bash
+[ "$#" != 3 ] && echo "Use: dkrnet HostNic ContainerNic2 ContainerName (e.g.: dkrnet ens33 ens37 master)" && exit 1
+
+# 第一個網卡名稱是否存在。
+ifconfig $1 > /dev/null 2>&1
+[[ "$?" != "0" ]] && echo "$1 not exist." && exit 1
+
+# 第二個網卡名稱是否存在。
+ifconfig $2 > /dev/null 2>&1
+[[ "$?" != "0" ]] && echo "$2 not exist." && exit 1
+
+HostNic="$1"
+ContainerNic2="$2"
+ContainerName="$3"
+
+# 欲加入網卡的 Container 是否存在。
+ContainerStatePid=$(sudo docker inspect -f '{{.State.Pid}}' "$ContainerName")
+[[ ! -n $ContainerStatePid ]] && echo "$ContainerName not exist." && exit 1
+
+# 將網卡加入至 Container。
+sudo mkdir -p /var/run/netns
+sudo ln -sf "/proc/$ContainerStatePid/ns/net" "/var/run/netns/$ContainerStatePid"
+sudo ip link set "$ContainerNic2" netns "$ContainerStatePid"
+#sudo ip netns exec "$ContainerStatePid" ip link list > /dev/null 2>&1
+
+# 接下來要設定上述加入至 Container 的網卡 IP。預設從 /opt/conf/hosts 取得設定檔。
+CtnConf="/opt/conf/hosts"
+
+# IPv4 的正則表達式。「x{1,3}」：連續 1 個到 3 個 x 就符合。「\.」：因「.」在正則表達式是特殊字元（表示一個任意字元），前加斜線「\.」表示用一般的字元來解釋。
+#「[1-9]」：表示 1 ~ 9 間的數字。「[1-9][0-9]」：10 ~ 99。「1[0-9][0-9]」：100 ~ 199。「2[0-4][0-9]」：200 ~ 249。「25[0-5]」：250 ~ 255。
+RegIp='(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])(\.(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])){3}'
+
+# 從 /opt/conf/hosts 設計圖中，將對映 Hostname 的 IP 取出。並將結果儲存至 $LogFile 檔內。若檔案不存在則指定 172.17.0.99 IP。
+[[ -f "$CtnConf" ]] && CtnIp=$(cat $CtnConf | grep -oP "^[ \t]*$RegIp[ \t]*$ContainerName" | grep -oE "$RegIp" | head -n 1) \
+|| CtnIp="172.17.0.99"
+
+# 取得宿主網卡的 IP、Netmask、Gateway。
+HostIp=$(ifconfig $HostNic | grep -oE "inet[0-9a-zA-Z: ]*$RegIp" | grep -oE "$RegIp" | head -n 1)
+HostNetmask=$(ifconfig $HostNic | grep -oE "ask[: ]*$RegIp" | grep -oE "$RegIp" | tail -n 1)
+HostGateway=$(ip route show dev $HostNic | grep -oE "$RegIp" | head -n 1)
+
+# 取得設置上述加入至 Container 的網卡 IP。宿主 IP 前三項 + Container IP 後一項。
+ContainerIp2="$(echo $HostIp | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.' | head -n 1)""$(echo $CtnIp | awk -F '.' '{print $4}')"
+
+# 設置上述加入至 Container 的網卡 IP。
+sudo docker exec -it "$ContainerName" ifconfig "$ContainerNic2" "$ContainerIp2" netmask "$HostNetmask" up
+sudo docker exec -it "$ContainerName" ping "$HostGateway" -c 3 > /dev/null 2>&1
+sudo docker exec -it "$ContainerName" route add default gw "$HostGateway"
+
+# 將取得的 IP 輸出。
+ContainerIp2=$(sudo docker exec -it "$ContainerName" ifconfig "$ContainerNic2" | grep -oE "inet[0-9a-zA-Z: ]*$RegIp" | grep -oE "$RegIp" | head -n 1)
+echo "Container $ContainerName's $ContainerNic2 IP is $ContainerIp2."
+
+# 釋放用不到的變數
+unset HostNic ContainerNic2 ContainerName ContainerStatePid CtnConf RegIp HostIp HostNetmask HostGateway ContainerIp2
+
+exit 0

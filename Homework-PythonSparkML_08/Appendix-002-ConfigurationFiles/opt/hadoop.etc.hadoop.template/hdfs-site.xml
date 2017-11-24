@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>dfs.replication</name>
+		<value>3</value>
+		<description>預設 Blocks 的備份數量。如果不需要太多的備份或 Cluster 比較小，可以改為 2。Client 端也可以根據使用狀況自行更改這個值。只是如果所設的值小於 dfs.replication，在執行 hadoop fsck 指令時會看到這個 Block 被標示為 Under-Replicated Blocks。（From https://fenriswolf.me）</description>
+	</property>
+
+	<property>
+		<name>dfs.namenode.secondary.http-address</name>
+		<value>master:50090</value>
+		<description>The secondary namenode http server address and port. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>dfs.hosts</name>
+		<value>/opt/hadoop/etc/hadoop/hdfs.include</value>
+		<description>預設不指定的狀況下，只要 Datanodes 在 hdfs-site.xml 指定 Namenode，在 mapred-site.xml 指定 Jobtracker 的位址就可以加入到這個 Cluster。但是為了安全考量，系統管理者可能要決定只有特定的 Nodes 可以加入。此值是指定一個檔案位置，名字可自取，例如：/opt/hadoop/etc/hadoop/hdfs.include，並列出所有可以連結 Namenode 的機器清單。不在清單上的機器是沒有權限的。在 mapred-site.xml 裡也有個類似的值 mapred.hosts 來指定可以連 Jobtracker 的機器清單。（From https://fenriswolf.me）</description>
+	</property>
+
+	<property>
+		<name>dfs.hosts.exclude</name>
+		<value>/opt/hadoop/etc/hadoop/hdfs.exclude</value>
+		<description>當需要汰換或移除多台機器時會用到。理論上一台機器無預期的當機，Hadoop 會偵測並把該機器上的 Blocks 搬到其他的 Datanodes 上，並不需要系統管理員做額外的動作。但是停掉多台機器的情況下是有風險的，假設備份個數為 3 並停掉三台機器，則有一定的機率某些 Blocks 正好只在這三台機器上，移掉之後資料也救不回來了。正確的做法是先告訴 Namenode 這些機器將被移除，讓 Namenode 把上面的資料全部備份到其他的 Datanodes 上，再進行停機。跟 dfs.hosts 一樣，指定一個檔案位置，名字可自取，例如：/opt/hadoop/etc/hadoop/hdfs.exclude，並列出所有需汰換的機器清單。設定後要執行以下的指令通知 Namenode 做搬資料的動作。（From https://fenriswolf.me）</description>
+	</property>
+
+	<property>
+		<name>dfs.namenode.rpc-bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual address the RPC server will bind to. If this optional address is set, it overrides only the hostname portion of dfs.namenode.rpc-address. It can also be specified per name node or name service for HA/Federation. This is useful for making the name node listen on all interfaces by setting it to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>dfs.namenode.servicerpc-bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual address the service RPC server will bind to. If this optional address is set, it overrides only the hostname portion of dfs.namenode.servicerpc-address. It can also be specified per name node or name service for HA/Federation. This is useful for making the name node listen on all interfaces by setting it to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>dfs.namenode.lifeline.rpc-bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual address the lifeline RPC server will bind to. If this optional address is set, it overrides only the hostname portion of dfs.namenode.lifeline.rpc-address. It can also be specified per name node or name service for HA/Federation. This is useful for making the name node listen on all interfaces by setting it to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>dfs.namenode.http-bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual adress the HTTP server will bind to. If this optional address is set, it overrides only the hostname portion of dfs.namenode.http-address. It can also be specified per name node or name service for HA/Federation. This is useful for making the name node HTTP server listen on all interfaces by setting it to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>dfs.namenode.https-bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual adress the HTTPS server will bind to. If this optional address is set, it overrides only the hostname portion of dfs.namenode.https-address. It can also be specified per name node or name service for HA/Federation. This is useful for making the name node HTTPS server listen on all interfaces by setting it to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+</configuration>

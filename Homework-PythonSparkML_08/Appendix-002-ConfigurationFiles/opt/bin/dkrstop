@@ -1,0 +1,44 @@
+#!/bin/bash
+#「-f」：該『檔名』是否存在且為檔案（file）。「!」：反向。「exit 0」：程式正常結束且返回 $0 變數。「exit 1」：程式錯誤結束且返回 $1 變數。
+[[ ! -f /opt/conf/hosts ]] && exit 1
+
+# 取得 /opt/conf/hosts Cluster 設計圖位置。
+CtnConf=/opt/conf/hosts
+
+# 把 /opt/conf/hosts 內的 \r 字元刪除，避免取值時出現不必要的字元。「\r」：Linux 的換行字元為 \n，Windows 的換行字元為\r\n，需避免 Linux 將 \r 當作有效字元。「sed」：「's/A/B/g' C」：將 C 檔內的 A 字串置換成 B。「$」：在行尾才算符合。「-i」：直接將取代結果寫回至 C 檔內。
+# 可以使用 $ cat $CtnConf | od -c 指令來查看檔案內是否有 \r 字元。
+sudo sed -i 's/\r$//g' $CtnConf
+
+# IPv4 的正則表達式。「x{1,3}」：連續 1 個到 3 個 x 就符合。「\.」：因「.」在正則表達式是特殊字元（表示一個任意字元），前加斜線「\.」表示用一般的字元來解釋。
+#「[1-9]」：表示 1 ~ 9 間的數字。「[1-9][0-9]」：10 ~ 99。「1[0-9][0-9]」：100 ~ 199。「2[0-4][0-9]」：200 ~ 249。「25[0-5]」：250 ~ 255。
+RegIp='(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])(\.(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])){3}'
+
+# 設置 Log 檔所在目錄位置。
+LogDir=/opt/logs
+
+# 設置 Log 檔路徑。
+LogFile="$LogDir/$HOSTNAME-root.log"
+
+# 若 $LogDir 目錄不存在就創建一個。「-d」：該『檔名』是否存在且為目錄。
+[[ ! -d $LogDir ]] && sudo mkdir -p $LogDir && sudo chmod 777 -R $LogDir
+# 製作空的 $LogFile 檔，並設置此檔有寫入權限。
+[[ ! -f $LogFile ]] && sudo touch "$LogFile" && sudo chmod 777 -R "$LogFile"
+
+# 將 $LogFile、$LogDir 變數寫入 $LogFile 內。「$(date)」：當下的時間。「$HOSTNAME」：目前的主機名稱。
+echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set LogFile = $LogFile" >> $LogFile 2>&1
+echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Set LogDir = $LogDir" >> $LogFile 2>&1
+
+# 從 /opt/conf/hosts 設計圖中，將所有 Container 的 Hostname 取出。「sort」：將結果按升冪排序。「-u」：將重複的結果讓它只出現一次。
+CtnNames=$(cat $CtnConf | grep -oP "^[ \t]*$RegIp[ \t]*[0-9a-z][0-9a-z_.-]{0,63}" | grep -oE "[0-9a-z][0-9a-z_.-]{0,63}" | grep -vE "$RegIp")
+
+# 根據 /opt/conf/hosts 設計圖，將 Hadoop 叢集內出現的主機名稱依序關閉。
+for cn in $CtnNames
+do
+	# 若欲關閉的 Container 存在，則將之關閉。「docker ps」：列出目前有建立且啟動的 Container。「--all」：列出所有啟動及關閉的 Container。「--filter」：指定篩選條件。「--format」：顯示所有 Container 完整資訊並指定顯示包含字詞。
+	[[ "$(sudo docker ps --all --filter "name=$cn" --format '{{.Names}}' | tail -n 1)" == "$cn" ]] && sudo docker stop "$cn" > /dev/null 2>&1 \
+	&& echo "$(date +%Y-%m-%dT%H:%M:%S) $USER@$HOSTNAME: Container $cn is stopped." >> $LogFile 2>&1 \
+	&& echo "Container $cn is stopped."
+done
+
+# 將上述有使用到的臨時變數刪除。
+unset CtnConf RegIp LogDir LogFile CtnNames cn

@@ -1,0 +1,25 @@
+# appadmin=hadoop # Application Administrator
+# dockerimage=oneleo/worker:17.11.2 # Docker Image Selection
+# clusterconf= #/opt/conf/cluster # Application Configuration Folder
+# sparkpython=python2 # python3 for Spark, python2 for Jupyter (IPython) Notebook
+
+# hadoophome=/opt/hadoop # Apache Hadoop Home
+# hbasehome= #/opt/hbase-1.2.6 # Apache HBase Home
+# pighome= #/opt/pig-0.17.0 # Apache Pig Home
+# hivehome= #/opt/apache-hive-2.2.0-bin # Apache Hive Home
+# flumehome= #/opt/apache-flume-1.7.0-bin # Apache Flume Home
+# kafkahome= #/opt/kafka_2.12-0.11.0.0 # Apache Kafka Home
+# zookeeperhome= #/opt/zookeeper-3.4.10 # Apache ZooKeeper Home
+# sparkhome=/opt/spark # Spark Home
+# anacondahome=/opt/anaconda # Anaconda Home
+
+# netmask=255.255.0.0 # Docker Netmask
+# gateway=172.17.0.1 # Docker Gateway
+# nameserver= #168.95.1.1 # Docker Name Server
+
+# namenodehost=master # Name Node, Secondary Name Node, Resource Manager, Spark Master
+
+172.17.0.10 master # Name Node, Secondary Name Node, Resource Manager, Spark Master
+172.17.0.11 data1 # Data Node, Node Manager, Spark Worker
+172.17.0.12 data2 # Data Node, Node Manager, Spark Worker
+172.17.0.13 data3 # Data Node, Node Manager, Spark Worker

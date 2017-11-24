@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Site specific YARN configuration properties -->
+
+<configuration>
+	<property>
+		<name>yarn.nodemanager.aux-services</name>
+		<value>mapreduce_shuffle</value>
+		<description>A comma separated list of services where service name should only contain a-zA-Z0-9_ and can not start with numbers. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+		<value>org.apache.hadoop.mapred.ShuffleHandler</value>
+		<description></description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.hostname</name>
+		<value>master</value>
+		<description>The hostname of the RM. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.scheduler.address</name>
+		<value>master:8030</value>
+		<description>The address of the scheduler interface. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.resource-tracker.address</name>
+		<value>master:8031</value>
+		<description></description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.address</name>
+		<value>master:8032</value>
+		<description>The address of the applications manager interface in the RM. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.webapp.address</name>
+		<value>master:8088</value>
+		<description>The http address of the RM web application. If only a host is provided as the value, the webapp will be served on a random port. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.nodes.include-path</name>
+		<value>/opt/hadoop/etc/hadoop/yarn.include</value>
+		<description>Path to file with nodes to include. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.nodes.exclude-path</name>
+		<value>/opt/hadoop/etc/hadoop/yarn.exclude</value>
+		<description>Path to file with nodes to exclude. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.resourcemanager.bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual address the server will bind to. If this optional address is set, the RPC and webapp servers will bind to this address and the port specified in yarn.resourcemanager.address and yarn.resourcemanager.webapp.address, respectively. This is most useful for making RM listen to all interfaces by setting to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.nodemanager.bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual address the server will bind to. If this optional address is set, the RPC and webapp servers will bind to this address and the port specified in yarn.nodemanager.address and yarn.nodemanager.webapp.address, respectively. This is most useful for making NM listen to all interfaces by setting to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.timeline-service.bind-host</name>
+		<value>0.0.0.0</value>
+		<description>The actual address the server will bind to. If this optional address is set, the RPC and webapp servers will bind to this address and the port specified in yarn.timeline-service.address and yarn.timeline-service.webapp.address, respectively. This is most useful for making the service listen to all interfaces by setting to 0.0.0.0. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.nodemanager.vmem-check-enabled</name>
+		<value>false</value>
+		<description>Whether virtual memory limits will be enforced for containers. (From http://hadoop.apache.org/docs)</description>
+	</property>
+
+	<property>
+		<name>yarn.nodemanager.pmem-check-enabled</name>
+		<value>false</value>
+		<description>Whether physical memory limits will be enforced for containers. (From http://hadoop.apache.org/docs)</description>
+	</property>
+</configuration>
