@@ -1,9 +1,9 @@
 # Homework - Python Spark ML（八）：Hadoop 的安裝
 # § 附錄 - VMware Workstaion 網路架構圖 §
 
-### 【[按此回上一頁](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
 
-## 【題目連結】
+## 【原始題目連結】
 ### [Python Spark ML（八）：Hadoop 的安裝](http://hemingwang.blogspot.tw/2017/10/python-spark-mlhadoop.html)
 
 ## 【My Answer】
@@ -64,3 +64,5 @@
 - [06] VMware Docs, "Configuring LAN Segments", [https://docs.vmware.com/en/VMware-Workstation-Pro/12.0/com.vmware.ws.using.doc/GUID-DEE1E2F1-5DA4-4C83-B7C5-A1165C84C757.html](https://docs.vmware.com/en/VMware-Workstation-Pro/12.0/com.vmware.ws.using.doc/GUID-DEE1E2F1-5DA4-4C83-B7C5-A1165C84C757.html)
 - [07] VMware Docs, "Sample Custom Networking Configuration", [https://docs.vmware.com/en/VMware-Workstation-Pro/12.0/com.vmware.ws.using.doc/GUID-AB5295E7-7EFC-4B3A-81E7-7FC444D81F07.html](https://docs.vmware.com/en/VMware-Workstation-Pro/12.0/com.vmware.ws.using.doc/GUID-AB5295E7-7EFC-4B3A-81E7-7FC444D81F07.html)
 - [08] , "Intro to Virtual Machine Networking", [https://diarmuidmccarthy.wordpress.com/2011/02/15/hello-world/](https://diarmuidmccarthy.wordpress.com/2011/02/15/hello-world/)
+
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】

@@ -1,9 +1,9 @@
 # Homework - Python Spark ML（八）：Hadoop 的安裝
-# § VMware Workstation 虛擬機器軟體安裝 §
+# § 001 - VMware Workstation 虛擬機器軟體安裝 §
 
-### 【[按此回上一頁](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
 
-## 【題目連結】
+## 【原始題目連結】
 ### [Python Spark ML（八）：Hadoop 的安裝](http://hemingwang.blogspot.tw/2017/10/python-spark-mlhadoop.html)
 
 ## 【My Answer】
@@ -68,4 +68,4 @@
 
 - [01] 林大貴，「博碩出版社 - Python+Spark 2.0+Hadoop機器學習與大數據分析實戰」，ISBN-13：9789864341535
 
-### 【[按此回上一頁](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】

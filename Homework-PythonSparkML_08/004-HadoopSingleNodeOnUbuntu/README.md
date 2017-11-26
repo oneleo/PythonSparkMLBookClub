@@ -1,9 +1,10 @@
 # Homework - Python Spark ML（八）：Hadoop 的安裝
 # § 004 - Hadoop Single Node Cluster 安裝 §
 
-## 【題目連結】
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
+
+## 【原始題目連結】
 ### [Python Spark ML（八）：Hadoop 的安裝](http://hemingwang.blogspot.tw/2017/10/python-spark-mlhadoop.html)
-### [按此回上一頁](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)
 
 ## 【My Answer】
 
@@ -578,7 +579,7 @@ $ ls -al /opt
 #### 09-007、下載敬翔自製的設定檔，解壓縮至「/opt」目錄，並設置權限。
 
 ``` Bash
-$ cd /tmp && wget "https://drive.google.com/uc?authuser=0&id=1aLWevPkZ1Bo2zAGmI-boS67qaP_6s0os&export=download"
+$ cd /tmp && wget "https://github.com/oneleo/PythonSparkMLBookClub/raw/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/hdopt17.11.23.tar.gz"
 $ tar -zxv -f "hdopt17.11.23.tar.gz" -C "/"
 $ sudo chown -R "$USER":"$USER" /opt && sudo chmod -R 775 /opt
 ```
@@ -1353,8 +1354,13 @@ $ sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; s
 ## 【References】
 
 - [01] 林大貴，「博碩出版社 - Python+Spark 2.0+Hadoop機器學習與大數據分析實戰」，ISBN-13：9789864341535
-- [01] VMware Docs, "VMware Workstation 14 Pro Product Documentation", [https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html](https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html)
-- [02] 國家高速網路與計算中心，「NCHC 雲端運算基礎課程(Hadoop簡介、安裝與實作) 課程錄影上線」，[http://www.hadoop.tw/2009/09/nchc-hadoop.html](http://www.hadoop.tw/2009/09/nchc-hadoop.html)
-- [03] 鳥哥的 Linux 私房菜，「第十二章、學習 Shell Scripts」，[http://linux.vbird.org/linux_basic/0340bashshell-scripts.php#test](http://linux.vbird.org/linux_basic/0340bashshell-scripts.php#test)
-- [04] stack overflow, "Why does an SSH remote command get fewer environment variables then when run manually?", [https://stackoverflow.com/questions/216202/why-does-an-ssh-remote-command-get-fewer-environment-variables-then-when-run-man](https://stackoverflow.com/questions/216202/why-does-an-ssh-remote-command-get-fewer-environment-variables-then-when-run-man)
-- [05] LIBFEIHU ，「ssh連接遠程主機執行腳本的環境變量問題」，[http://feihu.me/blog/2014/env-problem-when-ssh-executing-command-on-remote/](http://feihu.me/blog/2014/env-problem-when-ssh-executing-command-on-remote/)
+- [02] VMware Docs, "VMware Workstation 14 Pro Product Documentation", [https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html](https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html)
+- [03] 陳松林老師，「Big Data 研究室」，[http://bigdatahome.blogspot.tw/](http://bigdatahome.blogspot.tw/)
+- [04] Apache Hadoop，「Hadoop Docs」，[http://hadoop.apache.org/docs/current/](http://hadoop.apache.org/docs/current/)
+- [05] 國家高速網路與計算中心，「NCHC 雲端運算基礎課程(Hadoop簡介、安裝與實作) 課程錄影上線」，[http://www.hadoop.tw/2009/09/nchc-hadoop.html](http://www.hadoop.tw/2009/09/nchc-hadoop.html)
+- [06] 鳥哥的 Linux 私房菜，「第十二章、學習 Shell Scripts」，[http://linux.vbird.org/linux_basic/0340bashshell-scripts.php#test](http://linux.vbird.org/linux_basic/0340bashshell-scripts.php#test)
+- [07] stack overflow, "Why does an SSH remote command get fewer environment variables then when run manually?", [https://stackoverflow.com/questions/216202/why-does-an-ssh-remote-command-get-fewer-environment-variables-then-when-run-man](https://stackoverflow.com/questions/216202/why-does-an-ssh-remote-command-get-fewer-environment-variables-then-when-run-man)
+- [08] LIBFEIHU ，「ssh連接遠程主機執行腳本的環境變量問題」，[http://feihu.me/blog/2014/env-problem-when-ssh-executing-command-on-remote/](http://feihu.me/blog/2014/env-problem-when-ssh-executing-command-on-remote/)
+- [09] Fenriswolf 程式筆記，「Hadoop 參數設定」，[https://fenriswolf.me/](https://fenriswolf.me/)
+
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】

@@ -1,9 +1,10 @@
 # Homework - Python Spark ML（八）：Hadoop 的安裝
-# § 006 - Hadoop Container Image 的製作 §
+# § 006 - Hadoop & Spark 工作用 Docker Image 的製作 §
 
-## 【題目連結】
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
+
+## 【原始題目連結】
 ### [Python Spark ML（八）：Hadoop 的安裝](http://hemingwang.blogspot.tw/2017/10/python-spark-mlhadoop.html)
-### [按此回上一頁](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)
 
 ## 【My Answer】
 
@@ -14,7 +15,7 @@
 ### 01、CentOS 與 Ubuntu 的比較及想法
 
 #### 01-001、想法
-* 前面章節以多個 VM 來模擬叢集，較佔資源，若採一個 VM 多個 Container 容器來模叢集，會有較大的效率，故從本章節將會介紹架設 Docker 軟體貨櫃環境。
+* 前面[第四](./004-HadoopSingleNodeOnUbuntu)及[第五](./005-HadoopMultipleNodeOnUbuntu)章節以多個 VM 來模擬叢集，較佔資源，若採一個 VM 多個 Container 容器來模叢集，會有較大的效率，故從本章節將會介紹架設 Docker 軟體貨櫃環境。
 
 #### 01-002 Ubuntu 優缺點
 * 1、平均每 6 個月釋出一新版（頻率高），更新支援最長為釋出後 5 年內（較短），新硬體支援度高，容易上手，圖形化介面較友善，佔據儲存空間較多，社群活躍，系統比 CentOS 不穩定，預設安全政策寬鬆。（參考：[https://zh.wikipedia.org/wiki/Ubuntu](https://zh.wikipedia.org/wiki/Ubuntu)）
@@ -27,7 +28,7 @@
 * 2、中小企業架站伺服器、IDC 機房作業系統首選。（參考：[https://ddnews.me/tech/tlst2g2u.html](https://ddnews.me/tech/tlst2g2u.html)）
 
 #### 01-004、決定
-* 因 CentOS 安全政策嚴謹，且 Ubuntu 支援度高，故決定使用第一章節安裝的 CentOS 建置 Docker 軟體貨櫃環境，並使用 Ubuntu Container 容器，來架設 Hadoop 叢集環境。
+* 因 CentOS 安全政策嚴謹，且 Ubuntu 支援度高，故決定使用[第二章節](./002-InstallCentOS)安裝的 CentOS 建置 Docker 軟體貨櫃環境，並使用 Ubuntu Container 容器，來架設 Hadoop 叢集環境。
 * 附註：考量 Docker 需要高安全性環境，亦有多人選用 [CoreOS Linux](https://coreos.com/) 作為 Docker 的作業環境。
 
 ### 02、建立 Docker 環境
@@ -103,7 +104,7 @@ $ sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; s
 ```
 
 #### 03-005、重新開機後請使用剛新建的使用者 hadoop 登入。
-* 注意：登入後因為此 hadoop 使用者為第一次使用所以會進行第一次設置，可參考第一篇文章設置。操作順序為：語系選擇【English】→【Next】→鍵盤擇【Taiwanese】→【Next】→安全性預設【ON】→【Next】→連結帳號時選略過【Skip】→點選【Start using CentOS Linux】完成。
+* 注意：登入後因為此 hadoop 使用者為第一次使用所以會進行第一次設置，可參考[第二篇文章](./002-InstallCentOS)設置。操作順序為：語系選擇【English】→【Next】→鍵盤擇【Taiwanese】→【Next】→安全性預設【ON】→【Next】→連結帳號時選略過【Skip】→點選【Start using CentOS Linux】完成。
 
 ![](./Images/006-008.png)
 
@@ -1131,5 +1132,6 @@ $ sudo rm -rf /tmp/*
 
 ## 【References】
 
-- [01] 林大貴，「博碩出版社 - Python+Spark 2.0+Hadoop機器學習與大數據分析實戰」，ISBN-13：9789864341535
-- [01] VMware Docs, "VMware Workstation 14 Pro Product Documentation", [https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html](https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html)
+- [01] 陳松林老師，「Big Data 研究室」，[http://bigdatahome.blogspot.tw/](http://bigdatahome.blogspot.tw/)
+
+### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
