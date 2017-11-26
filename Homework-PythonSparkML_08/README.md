@@ -23,6 +23,8 @@
 
 - [第四](./004-HadoopSingleNodeOnUbuntu)及[第五](./005-HadoopMultipleNodeOnUbuntu)章節則彷照書中方法使用 Ubuntu 作為 Apache Spark 實驗區的作業系統平台。
 
+- 解答連結：[003-InstallUbuntu](./003-InstallUbuntu)
+
 ### 04、Hadoop & Spark Single Node Cluster 安裝
 
 - 彷照課本方式，並加入自己額外的想法，將單機版的 Hadoop 及 Spark + Jupyter Notebook 架設完成。
@@ -54,4 +56,21 @@
 - [03] 陳松林老師，「Big Data 研究室」，[http://bigdatahome.blogspot.tw/](http://bigdatahome.blogspot.tw/)
 - [04] Apache Hadoop，「Hadoop Docs」，[http://hadoop.apache.org/docs/current/](http://hadoop.apache.org/docs/current/)
 - [05] VMware，「VMware Workstation Docs」，[https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html](https://docs.vmware.com/en/VMware-Workstation-Pro/14.0/com.vmware.ws.using.doc/GUID-0EE752F8-C159-487A-9159-FE1F646EE4CA.html)
+- [07] 楊保華、戴王劍、曹亞侖，「碁峰書局 - Docker入門與實戰」，[http://www.books.com.tw/products/0010676115](http://www.books.com.tw/products/0010676115)
 
+License
+=============
+
+Copyright {yyyy} Sean Chen
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

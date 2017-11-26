@@ -601,7 +601,7 @@ $ ls -al /opt
 	drwxrwxr-x 1 ubuntu ubuntu  74 十一 11 11:59 spark.conf.template
 
 #### 09-009、將敬翔已撰寫好的 Hadoop 設定檔複製到「/opt/hadoop/etc/hadoop」目錄內
-* 設定檔分別為「[core-site.xml]()」、「[hdfs-site.xml]()」、「[mapred-site.xml]()」、「[yarn-site.xml]()」、「[slaves]()」、「[hdfs.include]()」、「[hdfs.exclude]()」、「[yarn.include]()」、「[yarn.exclude]()」，請點入連結察看設定說明。
+* 設定檔分別為「[core-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/core-site.xml)」、「[hdfs-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/hdfs-site.xml)」、「[mapred-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/mapred-site.xml)」、「[yarn-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/yarn-site.xml)」、「[slaves](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/slaves)」、「[hdfs.include]()」、「[hdfs.exclude](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/hdfs.exclude)」、「[yarn.include](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/yarn.include)」、「[yarn.exclude](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/yarn.exclude)」，請點入連結察看設定說明。
 * 「core-default.xml」所有的可用參數請參考：[官方網站](http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/core-default.xml)
 * 「hdfs-default.xml」所有的可用參數請參考：[官方網站](http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 * 「mapred-default.xml」所有的可用參數請參考：[官方網站](http://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml)
@@ -696,7 +696,7 @@ $ vim /opt/bin/vm.bash
 * 「Non-Interactive Login Shell」：已登入但沒有互動的使用者操作介面。在執行程式的時候，加入「--login」參數即是此種 Shell，如 ```$ /bin/bash --login script.sh```。此 Shell 下會自動執行的檔案和「Interactive Login Shell」一樣。
 * 「Interactive Non-Login Shell」：無登入且有互動的使用者操作介面。我們在 Terminal 中再執行一次 ```$ /bin/bash``` 即是此種 Shell。會先執行 /etc/bash.bashrc（或 CentOS 是 /etc/bashrc）檔，再執行 ~/.bashrc 檔。
 * 「Non-Interactive Non-Login Shell」：無登入且無互動的使用者操作介面。直接執行程式或透過 SSH 執行程式即是此種，如 ```$ /bin/bash script.sh```。一般來說會去執行 $BASH_ENV 變數指到的檔案。但在這邊 Hadoop 會透過 SSH 去執行程式，所以還會再執行「/home/$USER/.ssh/environment」檔。
-* 「/opt/bin/vm.boot」程式說明請參考上方敬翔自製設定檔壓縮包內的「[/opt/bin/dkc.boot]()」檔。
+* 「/opt/bin/vm.boot」程式說明請參考上方敬翔自製設定檔壓縮包內的「[/opt/bin/dkc.boot](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.boot)」檔。
 
 ``` Bash
 $ vim /opt/bin/vm.boot
@@ -959,7 +959,7 @@ $ ls -al /opt
 	drwxrwxr-x 1 ubuntu ubuntu  74 十一 11 11:59 spark.conf.template
 
 #### 12-010、將敬翔已撰寫好的 Hadoop 設定檔複製到「/opt/spark/conf」目錄內
-* 設定檔分別為「[spark-defaults.conf]()」、「[spark-env.sh]()」、「[slaves]()」，請點入連結察看設定說明。
+* 設定檔分別為「[spark-defaults.conf](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/spark.conf.template/spark-defaults.conf)」、「[spark-env.sh](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/spark.conf.template/spark-env.sh)」、「[slaves](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/spark.conf.template/slaves)」，請點入連結察看設定說明。
 * 相關參數請參考：[官方網站](https://spark.apache.org/docs/latest/configuration.html)。
 
 ``` Bash
@@ -1063,7 +1063,7 @@ $ pyspark
 >>> textFile.count()
 ```
 
-	1801
+	1975
 
 #### 12-018、離開 PySpark 互動介面。
 
@@ -1233,8 +1233,8 @@ $ pyspark --master spark://master:7077 --num-executors 1 --total-executor-cores 
     to login with a token:
         http://0.0.0.0:8888/?token=ef63f1b9c958513c64c3177573da016ea4e7dd585e815d7f
 
-#### 13-014、觀察上述執行訊息，使用 Jupyter Notebook 前需先進行安全性認證，請先在 Windows 下使用瀏覽器查看「http://192.168.133.139:8888/?token=XXXX」網址。
-* 在此處所顯示的認證網址為「http://0.0.0.0:8888」，表示 Jupyter Notebook 目前允許來自不同來源的位址 IP 連線。所以在這邊要將 0.0.0.0 改成 NAT 的網路卡 IP「192.168.133.139」。 
+#### 13-014、觀察上述執行訊息，使用 Jupyter Notebook 前需先進行安全性認證，請先在 Windows 下使用瀏覽器查看「[http://192.168.133.139:8888/?token=XXXX](http://192.168.133.139:8888/?token=XXXX)」網址。
+* 在此處所顯示的認證網址為「[http://0.0.0.0:8888](http://0.0.0.0:8888)」，表示 Jupyter Notebook 目前允許來自不同來源的位址 IP 連線。所以在這邊要將 0.0.0.0 改成 NAT 的網路卡 IP「192.168.133.139」。 
 * 請依據不同的認證網址來登入服務，而此處的認證網址為 [http://0.0.0.0:8888/?token=ef63f1b9c958513c64c3177573da016ea4e7dd585e815d7f](http://0.0.0.0:8888/?token=ef63f1b9c958513c64c3177573da016ea4e7dd585e815d7f)。
 * 登入 Jupyter Notebook 服務後即可在 [http://192.168.133.139:8888/](http://192.168.133.139:8888/) 網頁下撰寫 Spark Python 語言，並且在上述所啟動的 Spark Standalone（Spark 叢集）下進行分散式運算（只是在此處只有一臺 VM 運算）。
 
@@ -1257,7 +1257,7 @@ $ pyspark --master spark://master:7077 --num-executors 1 --total-executor-cores 
 * 在「In [2]:」中輸入【textFile=sc.textFile("file:/opt/hadoop/LICENSE.txt")】→按下【Enter】。
 * 接著輸入【textFile.count()】→按下【Shift】+【Enter】開始運算。
 
-	Out[2]: 1801
+	Out[2]: 1975
 
 ![](./Images/004-030.png)
 

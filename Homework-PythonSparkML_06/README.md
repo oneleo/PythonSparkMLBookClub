@@ -275,3 +275,20 @@ CHAID 使用 Missing Value Branch：將 Missing Value 視為獨立的特殊分�
 - [17] skydome20，「R 筆記 –（10）遺漏值處理（Impute Missing Value）」，2016，[https://rpubs.com/skydome20/R-Note10-Missing_Value](https://rpubs.com/skydome20/R-Note10-Missing_Value "https://rpubs.com/skydome20/R-Note10-Missing_Value")
 - [18] Mirage Chung，「Python Spark ML 作業六解答」，[https://github.com/mirage7714/python_spark_ml/wiki/python_spark_ml-homework-4:-Decision-Tree-Syntax](https://github.com/mirage7714/python_spark_ml/wiki/python_spark_ml-homework-4:-Decision-Tree-Syntax "https://github.com/mirage7714/python_spark_ml/wiki/python_spark_ml-homework-4:-Decision-Tree-Syntax")
 - [19] 吳政龍，「Python Spark ML 作業六解答」，[https://raw.githubusercontent.com/ZhengLungWu/For_MachineLearning/master/hw5%20for%20ML.txt](https://raw.githubusercontent.com/ZhengLungWu/For_MachineLearning/master/hw5%20for%20ML.txt "https://raw.githubusercontent.com/ZhengLungWu/For_MachineLearning/master/hw5%20for%20ML.txt")
+
+License
+=============
+
+Copyright {yyyy} Sean Chen
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

@@ -10,6 +10,17 @@
 
 	[【My Answer】](./Homework-PythonSparkML_03)
  
+- [Python Spark ML（六）：Decision Tree Algorithm Survey](http://hemingwang.blogspot.tw/2017/09/python-spark-mldecision-tree-algorithm.html)
+
+	[【My Answer】](./Homework-PythonSparkML_06)
+
+- [Python Spark ML（七）：Python Hadoop Spark](http://hemingwang.blogspot.tw/2017/09/python-spark-mlpython-hadoop-spark.html)
+
+	[【My Answer】](./Homework-PythonSparkML_07)
+
+- [Python Spark ML（八）：Hadoop 的安裝](http://hemingwang.blogspot.tw/2017/10/python-spark-mlhadoop.html)
+
+	[【My Answer】](./Homework-PythonSparkML_08)
 
 License
 =============

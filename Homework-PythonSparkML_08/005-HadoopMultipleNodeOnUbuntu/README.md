@@ -293,7 +293,7 @@ $ pyspark --master yarn
 
 ![](./Images/005-027.png)
 
-#### 03-005、進入 Jupyter Notebook 後亦可至 Hadoop Yarn 頁面 http://192.168.133.139:8088 看到 Spark 執行狀況。
+#### 03-005、進入 Jupyter Notebook 後亦可至 Hadoop Yarn 頁面 [http://192.168.133.139:8088](http://192.168.133.139:8088) 看到 Spark 執行狀況。
 
 ![](./Images/005-028.png)
 
@@ -378,7 +378,7 @@ $ pyspark --master spark://master:7077 --num-executors 1 --total-executor-cores 
 
 ![](./Images/005-037.png)
 
-#### 04-006、此時可以進入 Spark Stand Alone 頁面 http://192.168.133.139:8080 看到 Spark 執行狀況。
+#### 04-006、此時可以進入 Spark Stand Alone 頁面 [http://192.168.133.139:8080](http://192.168.133.139:8080) 看到 Spark 執行狀況。
 
 ![](./Images/005-038.png)
 

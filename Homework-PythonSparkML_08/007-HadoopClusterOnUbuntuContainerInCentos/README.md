@@ -79,7 +79,7 @@ $ ls -al /opt
 	drwxrwxr-x. 1 hadoop hadoop  74 Nov 24 16:04 spark.conf.template
 
 #### 01-009、將敬翔已撰寫好的 Hadoop 設定檔複製到「/opt/hadoop/etc/hadoop」目錄內
-* 設定檔分別為「[core-site.xml]()」、「[hdfs-site.xml]()」、「[mapred-site.xml]()」、「[yarn-site.xml]()」、「[slaves]()」、「[hdfs.include]()」、「[hdfs.exclude]()」、「[yarn.include]()」、「[yarn.exclude]()」，請點入連結察看設定說明。
+* 設定檔分別為「[core-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/core-site.xml)」、「[hdfs-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/hdfs-site.xml)」、「[mapred-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/mapred-site.xml)」、「[yarn-site.xml](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/yarn-site.xml)」、「[slaves](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/slaves)」、「[hdfs.include]()」、「[hdfs.exclude](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/hdfs.exclude)」、「[yarn.include](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/yarn.include)」、「[yarn.exclude](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/hadoop.etc.hadoop.template/yarn.exclude)」，請點入連結察看設定說明。
 * 「core-default.xml」所有的可用參數請參考：[官方網站](http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/core-default.xml)
 * 「hdfs-default.xml」所有的可用參數請參考：[官方網站](http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 * 「mapred-default.xml」所有的可用參數請參考：[官方網站](http://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml)
@@ -139,7 +139,7 @@ $ ls -al /opt
 	drwxrwxr-x. 1 hadoop hadoop  74 Nov 24 16:04 spark.conf.template
 
 #### 02-006、將敬翔已撰寫好的 Hadoop 設定檔複製到「/opt/spark/conf」目錄內
-* 設定檔分別為「[spark-defaults.conf]()」、「[spark-env.sh]()」、「[slaves]()」，請點入連結察看設定說明。
+* 設定檔分別為「[spark-defaults.conf](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/spark.conf.template/spark-defaults.conf)」、「[spark-env.sh](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/spark.conf.template/spark-env.sh)」、「[slaves](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/spark.conf.template/slaves)」，請點入連結察看設定說明。
 * 相關參數請參考：[官方網站](https://spark.apache.org/docs/latest/configuration.html)。
 
 ``` Bash
@@ -202,7 +202,7 @@ $ ls -al /opt
 
 #### 04-001、依需求修改設計圖。
 * 敬翔自製的腳本放置於 /opt/bin 目錄內，腳本會參照 /opt/conf/hosts 檔（設計圖）來執行，故要依需求修改此設計圖，請將此設計圖的【dockerimage】參數修改成[上一章節]()所製作的 Docker Image。
-* 敬翔自製的腳本分別為「[dkc.boot]()」、「[dkc.bash]()」、「[dkrstart]()」、「[dkrstop]()」、「[dkrremove]()」、「[dkrnet]()」，請點入連結察看設定說明。
+* 敬翔自製的腳本分別為「[dkc.boot](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.boot)」、「[dkc.bash](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.bash)」、「[dkrstart](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrstart)」、「[dkrstop](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrstop)」、「[dkrremove](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrremove)」、「[dkrnet](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrnet)」，請點入連結察看設定說明。
 * 文件最下方（未被註解處）可再自行追加或減少 Hostname 及對映的 IP 數，腳本會自動偵測並供裝。 
 
 ``` Bash
@@ -631,5 +631,6 @@ $ sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; s
 - [07] stack overflow, "Why does an SSH remote command get fewer environment variables then when run manually?", [https://stackoverflow.com/questions/216202/why-does-an-ssh-remote-command-get-fewer-environment-variables-then-when-run-man](https://stackoverflow.com/questions/216202/why-does-an-ssh-remote-command-get-fewer-environment-variables-then-when-run-man)
 - [08] LIBFEIHU ，「ssh連接遠程主機執行腳本的環境變量問題」，[http://feihu.me/blog/2014/env-problem-when-ssh-executing-command-on-remote/](http://feihu.me/blog/2014/env-problem-when-ssh-executing-command-on-remote/)
 - [09] Fenriswolf 程式筆記，「Hadoop 參數設定」，[https://fenriswolf.me/](https://fenriswolf.me/)
+- [10] 楊保華、戴王劍、曹亞侖，「碁峰書局 - Docker入門與實戰」，[http://www.books.com.tw/products/0010676115](http://www.books.com.tw/products/0010676115)
 
 ### 【[按此回上一頁目錄](https://github.com/oneleo/PythonSparkMLBookClub/tree/master/Homework-PythonSparkML_08)】
