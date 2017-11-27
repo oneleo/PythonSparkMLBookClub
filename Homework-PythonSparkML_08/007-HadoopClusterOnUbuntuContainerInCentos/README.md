@@ -202,38 +202,38 @@ $ ls -al /opt
 
 #### 04-001、依需求修改設計圖。
 * 敬翔自製的腳本放置於 /opt/bin 目錄內，腳本會參照 /opt/conf/hosts 檔（設計圖）來執行，故要依需求修改此設計圖，請將此設計圖的【dockerimage】參數修改成[上一章節]()所製作的 Docker Image。
-* 敬翔自製的腳本分別為「[dkc.boot](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.boot)」、「[dkc.bash](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.bash)」、「[dkrstart](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrstart)」、「[dkrstop](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrstop)」、「[dkrremove](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrremove)」、「[dkrnet](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrnet)」，請點入連結察看設定說明。
+* 敬翔自製的腳本分別為「[hosts](PythonSparkMLBookClub/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/conf/hosts)」、「[dkc.boot](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.boot)」、「[dkc.bash](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkc.bash)」、「[dkrstart](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrstart)」、「[dkrstop](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrstop)」、「[dkrremove](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrremove)」、「[dkrnet](https://github.com/oneleo/PythonSparkMLBookClub/blob/master/Homework-PythonSparkML_08/Appendix-002-ConfigurationFiles/opt/bin/dkrnet)」，請點入連結察看設定說明。
 * 文件最下方（未被註解處）可再自行追加或減少 Hostname 及對映的 IP 數，腳本會自動偵測並供裝。 
 
 ``` Bash
 $ vim /opt/conf/hosts
 ```
 
-> 	# appadmin=hadoop # Application Administrator
-> 	# dockerimage=oneleo/worker:17.11.2 # Docker Image Selection
-> 	# clusterconf= #/opt/conf/cluster # Application Configuration Folder
-> 	# sparkpython=python2 # python3 for Spark, python2 for Jupyter (IPython) Notebook
-> 	
-> 	# hadoophome=/opt/hadoop # Apache Hadoop Home
-> 	# hbasehome= #/opt/hbase-1.2.6 # Apache HBase Home
-> 	# pighome= #/opt/pig-0.17.0 # Apache Pig Home
-> 	# hivehome= #/opt/apache-hive-2.2.0-bin # Apache Hive Home
-> 	# flumehome= #/opt/apache-flume-1.7.0-bin # Apache Flume Home
-> 	# kafkahome= #/opt/kafka_2.12-0.11.0.0 # Apache Kafka Home
-> 	# zookeeperhome= #/opt/zookeeper-3.4.10 # Apache ZooKeeper Home
-> 	# sparkhome=/opt/spark # Spark Home
-> 	# anacondahome=/opt/anaconda # Anaconda Home
-> 	
-> 	# netmask=255.255.0.0 # Docker Netmask
-> 	# gateway=172.17.0.1 # Docker Gateway
-> 	# nameserver= #168.95.1.1 # Docker Name Server
-> 	
-> 	# namenodehost=master # Name Node, Secondary Name Node, Resource Manager, Spark Master
-> 	
-> 	172.17.0.10 master # Name Node, Secondary Name Node, Resource Manager, Spark Master
-> 	172.17.0.11 data1 # Data Node, Node Manager, Spark Worker
-> 	172.17.0.12 data2 # Data Node, Node Manager, Spark Worker
-> 	172.17.0.13 data3 # Data Node, Node Manager, Spark Worker
+> 		# appadmin=hadoop # Application Administrator
+> 		# dockerimage=oneleo/worker:17.11.2 # Docker Image Selection
+> 		# clusterconf= #/opt/conf/cluster # Application Configuration Folder
+> 		# sparkpython=python2 # python3 for Spark, python2 for Jupyter (IPython) Notebook
+> 		
+> 		# hadoophome=/opt/hadoop # Apache Hadoop Home
+> 		# hbasehome= #/opt/hbase-1.2.6 # Apache HBase Home
+> 		# pighome= #/opt/pig-0.17.0 # Apache Pig Home
+> 		# hivehome= #/opt/apache-hive-2.2.0-bin # Apache Hive Home
+> 		# flumehome= #/opt/apache-flume-1.7.0-bin # Apache Flume Home
+> 		# kafkahome= #/opt/kafka_2.12-0.11.0.0 # Apache Kafka Home
+> 		# zookeeperhome= #/opt/zookeeper-3.4.10 # Apache ZooKeeper Home
+> 		# sparkhome=/opt/spark # Spark Home
+> 		# anacondahome=/opt/anaconda # Anaconda Home
+> 		
+> 		# netmask=255.255.0.0 # Docker Netmask
+> 		# gateway=172.17.0.1 # Docker Gateway
+> 		# nameserver= #168.95.1.1 # Docker Name Server
+> 		
+> 		# namenodehost=master # Name Node, Secondary Name Node, Resource Manager, Spark Master
+> 		
+> 		172.17.0.10 master # Name Node, Secondary Name Node, Resource Manager, Spark Master
+> 		172.17.0.11 data1 # Data Node, Node Manager, Spark Worker
+> 		172.17.0.12 data2 # Data Node, Node Manager, Spark Worker
+> 		172.17.0.13 data3 # Data Node, Node Manager, Spark Worker
 
 #### 04-002、根據設計圖供裝 Container，並設置好每一個 Container 環境變數及 IP，並將執行結果放到 /opt/logs 目錄內。
 
