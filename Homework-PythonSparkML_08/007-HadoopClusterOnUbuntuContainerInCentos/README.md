@@ -10,7 +10,7 @@
 
 > 因自身是機器學習初學者，此份作業參考各方資料並加入自己的理解，若有誤還請多指教（建立 Github Issue 來協助我修正），謝謝。
 
-### 01、接續[上一章節](./006-CreateHadoopContainerImage)，接下來要使用製作好的 Container 部署成 Hadoop 叢集，首先進行 Hadoop 安裝及相關設置。
+### 01、接續[上一章節](../006-CreateHadoopContainerImage)，接下來要使用製作好的 Container 部署成 Hadoop 叢集，首先進行 Hadoop 安裝及相關設置。
 
 #### 01-001、建立放置 Hadoop、Spark 及 Anaconda 原始檔的目錄「/opt」，建立好後設置權限。
 

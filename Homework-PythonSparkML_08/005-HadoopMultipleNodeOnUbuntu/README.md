@@ -14,7 +14,7 @@
 
 ### 01、建立另外三臺 Data VM
 
-#### 01-001、將[上一章節](./004-HadoopSingleNodeOnUbuntu)設置好的 Master VM 複製成另外三臺 Data VM。
+#### 01-001、將[上一章節](../004-HadoopSingleNodeOnUbuntu)設置好的 Master VM 複製成另外三臺 Data VM。
 * 請在「Ubuntu-Hadoop-Master-01」標籤上按滑鼠【右鍵】→【Manage】→【Clone...】。
 
 ![](./Images/005-001.png)
