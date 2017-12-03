@@ -49,6 +49,18 @@
 
 - 解答連結：[007-HadoopClusterOnUbuntuContainerInCentos](./007-HadoopClusterOnUbuntuContainerInCentos)
 
+### 附錄：VMware Workstaion 網路架構圖
+
+- 了解 VMware Workstaion 軟體的網路架構圖。
+
+- 解答連結：[Appendix-001-VMwareWorkstationNetwork](./Appendix-001-VMwareWorkstationNetwork)
+
+### 附錄：敬翔自製的 Container、Hadoop、Spark 設定檔。
+
+- 可參考註解了解實作內容。
+
+- 解答連結：[Appendix-002-ConfigurationFiles](./Appendix-002-ConfigurationFiles)
+
 ## 【References】
 
 - [01] 林大貴，「博碩出版社 - Python+Spark 2.0+Hadoop機器學習與大數據分析實戰」，ISBN-13：9789864341535

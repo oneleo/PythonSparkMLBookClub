@@ -138,23 +138,23 @@ $ sudo yum check-update && sudo yum -y update
 $ sudo vim /etc/sudoers
 ```
 
-> 	…（前略）
-> 	## Allows people in group wheel to run all commands
-> 	%wheel ALL=(ALL) ALL
-> 	
-> 	## Same thing without a password
-> 	# %wheel ALL=(ALL) NOPASSWD: ALL
-> 	…（後略）
+> 		…（前略）
+> 		## Allows people in group wheel to run all commands
+> 		%wheel ALL=(ALL) ALL
+> 		
+> 		## Same thing without a password
+> 		# %wheel ALL=(ALL) NOPASSWD: ALL
+> 		…（後略）
 > 	
 > ↑ 第 99 列及 102 列修改成 ↓
 > 	
-> 	…（前略）
-> 	## Allows people in group wheel to run all commands
-> 	#%wheel ALL=(ALL) ALL
-> 	
-> 	## Same thing without a password
-> 	%wheel ALL=(ALL) NOPASSWD: ALL
-> 	…（後略）
+> 		…（前略）
+> 		## Allows people in group wheel to run all commands
+> 		#%wheel ALL=(ALL) ALL
+> 		
+> 		## Same thing without a password
+> 		%wheel ALL=(ALL) NOPASSWD: ALL
+> 		…（後略）
 
 #### 03-010、安裝 SSH 遠端程式、下載程式、文字編輯軟體、網路除錯工具、系統工具、Python 語言。軟體貨櫃軟體。
 
@@ -174,50 +174,50 @@ $ sudo yum install -y openssl-devel snappy-devel bzip2-devel
 $ sudo vim /etc/ssh/sshd_config
 ```
 
-> 	…（上略）
-> 	# Authentication:
-> 	
-> 	#LoginGraceTime 2m
-> 	#PermitRootLogin yes
-> 	#StrictModes yes
-> 	…（中略）
-> 	#UsePrivilegeSeparation sandbox
-> 	#PermitUserEnvironment no
-> 	#Compression delayed
-> 	#UsePrivilegeSeparation sandbox
-> 	#PermitUserEnvironment no
-> 	#Compression delayed
-> 	#ClientAliveInterval 0
-> 	#ClientAliveCountMax 3
-> 	#ShowPatchLevel no
-> 	#UseDNS yes
-> 	#PidFile /var/run/sshd.pid
-> 	…（下略）
+> 		…（上略）
+> 		# Authentication:
+> 		
+> 		#LoginGraceTime 2m
+> 		#PermitRootLogin yes
+> 		#StrictModes yes
+> 		…（中略）
+> 		#UsePrivilegeSeparation sandbox
+> 		#PermitUserEnvironment no
+> 		#Compression delayed
+> 		#UsePrivilegeSeparation sandbox
+> 		#PermitUserEnvironment no
+> 		#Compression delayed
+> 		#ClientAliveInterval 0
+> 		#ClientAliveCountMax 3
+> 		#ShowPatchLevel no
+> 		#UseDNS yes
+> 		#PidFile /var/run/sshd.pid
+> 		…（下略）
 > 	
 > ↑ 第 38 列、110 列及 115 列修改成 ↓
 > 	
 > 	…（上略）
 > 	# Authentication:
 > 	
-> 	#LoginGraceTime 2m
-> 	#PermitRootLogin yes
-> 	PermitRootLogin no
-> 	#StrictModes yes
-> 	…（中略）
-> 	#UsePrivilegeSeparation sandbox
-> 	#PermitUserEnvironment no
-> 	#Compression delayed
-> 	#UsePrivilegeSeparation sandbox
-> 	#PermitUserEnvironment no
-> 	PermitUserEnvironment yes
-> 	#Compression delayed
-> 	#ClientAliveInterval 0
-> 	#ClientAliveCountMax 3
-> 	#ShowPatchLevel no
-> 	#UseDNS yes
-> 	UseDNS no
-> 	#PidFile /var/run/sshd.pid
-> 	…（下略）
+> 		#LoginGraceTime 2m
+> 		#PermitRootLogin yes
+> 		PermitRootLogin no
+> 		#StrictModes yes
+> 		…（中略）
+> 		#UsePrivilegeSeparation sandbox
+> 		#PermitUserEnvironment no
+> 		#Compression delayed
+> 		#UsePrivilegeSeparation sandbox
+> 		#PermitUserEnvironment no
+> 		PermitUserEnvironment yes
+> 		#Compression delayed
+> 		#ClientAliveInterval 0
+> 		#ClientAliveCountMax 3
+> 		#ShowPatchLevel no
+> 		#UseDNS yes
+> 		UseDNS no
+> 		#PidFile /var/run/sshd.pid
+> 		…（下略）
 
 #### 03-013、設定 SSH Client 連線設置，第 35 列。
 
@@ -225,16 +225,16 @@ $ sudo vim /etc/ssh/sshd_config
 $ sudo vim /etc/ssh/ssh_config
 ```
 
-> 	…（略）
-> 	# StrictHostKeyChecking ask
-> 	…（略）
+> 		…（略）
+> 		# StrictHostKeyChecking ask
+> 		…（略）
 > 	
 > ↑ 第 35 列修改成 ↓
 > 	
-> 	…（略）
-> 	# StrictHostKeyChecking ask
-> 	StrictHostKeyChecking no
-> 	…（略）
+> 		…（略）
+> 		# StrictHostKeyChecking ask
+> 		StrictHostKeyChecking no
+> 		…（略）
 
 #### 03-014、設定開機後自動啟動 SSH，以及重新啟動 SSH 服務。
 
@@ -474,22 +474,22 @@ root@xxxxxxxxxxxx:/# apt-get update && apt-get upgrade -y && apt-get dist-upgrad
 root@xxxxxxxxxxxx:/# vim /etc/sudoers
 ```
 
-> 	…（前略）
-> 	# Allow members of group sudo to execute any command
-> 	%sudo   ALL=(ALL:ALL) ALL
-> 	
-> 	# See sudoers(5) for more information on "#include" directives:
-> 	…（後略）
+> 		…（前略）
+> 		# Allow members of group sudo to execute any command
+> 		%sudo   ALL=(ALL:ALL) ALL
+> 		
+> 		# See sudoers(5) for more information on "#include" directives:
+> 		…（後略）
 > 	
 > ↑ 第 26 列修改成 ↓
 > 	
-> 	…（前略）
-> 	# Allow members of group sudo to execute any command
-> 	#%sudo  ALL=(ALL:ALL) ALL
-> 	%sudo   ALL=(ALL:ALL) NOPASSWD: ALL
-> 	
-> 	# See sudoers(5) for more information on "#include" directives:
-> 	…（後略）
+> 		…（前略）
+> 		# Allow members of group sudo to execute any command
+> 		#%sudo  ALL=(ALL:ALL) ALL
+> 		%sudo   ALL=(ALL:ALL) NOPASSWD: ALL
+> 		
+> 		# See sudoers(5) for more information on "#include" directives:
+> 		…（後略）
 
 #### 05-008、安裝此 Ubuntu Container 所需的基本套件：SSH 遠端程式、下載程式、文字編輯軟體、網路除錯工具、系統工具、Scala 語言。
 
@@ -631,16 +631,16 @@ root@xxxxxxxxxxxx:/# locale -a
 root@xxxxxxxxxxxx:/# vim /etc/skel/.bashrc
 ```
 
-> 	…（前略）
-> 	alias ping='ping -c 4'
-> 	alias dir='ls -alh'
-> 	if [ -z "$SSH_TTY" ]; then
-> 	   export LANG=en_US.UTF-8
-> 	   export LANGUAGE=en_US
-> 	   export LC_ALL=en_US.UTF-8
-> 	else
-> 	   export LC_ALL=zh_TW.UTF-8
-> 	fi
+> 		…（前略）
+> 		alias ping='ping -c 4'
+> 		alias dir='ls -alh'
+> 		if [ -z "$SSH_TTY" ]; then
+> 		   export LANG=en_US.UTF-8
+> 		   export LANGUAGE=en_US
+> 		   export LC_ALL=en_US.UTF-8
+> 		else
+> 		   export LC_ALL=zh_TW.UTF-8
+> 		fi
 
 #### 05-023、上面是為所有新增的使用者設置，現在為目前的 root 使用者設定
 
@@ -648,16 +648,16 @@ root@xxxxxxxxxxxx:/# vim /etc/skel/.bashrc
 root@xxxxxxxxxxxx:/# vim /root/.bashrc
 ```
 
-> 	…（前略）
-> 	alias ping='ping -c 4'
-> 	alias dir='ls -alh'
-> 	if [ -z "$SSH_TTY" ]; then
-> 	   export LANG=en_US.UTF-8
-> 	   export LANGUAGE=en_US
-> 	   export LC_ALL=en_US.UTF-8
-> 	else
-> 	   export LC_ALL=zh_TW.UTF-8
-> 	fi
+> 		…（前略）
+> 		alias ping='ping -c 4'
+> 		alias dir='ls -alh'
+> 		if [ -z "$SSH_TTY" ]; then
+> 		   export LANG=en_US.UTF-8
+> 		   export LANGUAGE=en_US
+> 		   export LC_ALL=en_US.UTF-8
+> 		else
+> 		   export LC_ALL=zh_TW.UTF-8
+> 		fi
 
 #### 05-024、新增一名 UID 為 10000 的使用者 hadoop，其主要群組為 hadoop，次要群組為 sudo。
 * 注意：未來使用此 Container 的宿主，也要創建 UID 10000 的使用者（建議一樣是 hadoop），因為 Container UID 為 10000 使用者權限與宿主 UID 10000 的使用者權限相同。所以上述我們已經在 CentOS VM 宿主中創建了 UID 10000 的 hadoop 使用者。
@@ -703,27 +703,27 @@ root@xxxxxxxxxxxx:/# mkdir -p /var/run/sshd
 root@xxxxxxxxxxxx:/# vim /etc/ssh/sshd_config
 ```
 
-> 	…（上略）
-> 	# Authentication:
-> 	LoginGraceTime 120
-> 	PermitRootLogin prohibit-password
-> 	StrictModes yes
-> 	…（中略）
-> 	UsePAM yes
+> 		…（上略）
+> 		# Authentication:
+> 		LoginGraceTime 120
+> 		PermitRootLogin prohibit-password
+> 		StrictModes yes
+> 		…（中略）
+> 		UsePAM yes
 > 	
 > ↑ 修改第 28 列，以及在文件最下方增加內容 ↓
 > 
-> 	…（上略）
-> 	# Authentication:
-> 	LoginGraceTime 120
-> 	#PermitRootLogin prohibit-password
-> 	PermitRootLogin no
-> 	StrictModes yes
-> 	…（中略）
-> 	UsePAM yes
-> 	
-> 	PermitUserEnvironment yes
-> 	UseDNS no
+> 		…（上略）
+> 		# Authentication:
+> 		LoginGraceTime 120
+> 		#PermitRootLogin prohibit-password
+> 		PermitRootLogin no
+> 		StrictModes yes
+> 		…（中略）
+> 		UsePAM yes
+> 		
+> 		PermitUserEnvironment yes
+> 		UseDNS no
 
 #### 05-029、接下來進行 SSH Client 設置，編輯「/etc/ssh/ssh_config」檔。
 
@@ -731,16 +731,16 @@ root@xxxxxxxxxxxx:/# vim /etc/ssh/sshd_config
 root@xxxxxxxxxxxx:/# vim /etc/ssh/ssh_config
 ```
 
-> 	…（前略）
-> 	# StrictHostKeyChecking ask
-> 	…（後略）
+> 		…（前略）
+> 		# StrictHostKeyChecking ask
+> 		…（後略）
 > 
 > ↑ 第 35 列修改成 ↓
 > 
-> 	…（前略）
-> 	# StrictHostKeyChecking ask
-> 	StrictHostKeyChecking no
-> 	…（後略）
+> 		…（前略）
+> 		# StrictHostKeyChecking ask
+> 		StrictHostKeyChecking no
+> 		…（後略）
 
 #### 05-030、切換至 hadoop 帳戶。
 * 【su】：切換至其他帳戶。
@@ -824,17 +824,17 @@ root@xxxxxxxxxxxx:/# netstat -ano
 root@xxxxxxxxxxxx:/# vim /etc/bash.bashrc
 ```
 
-> 	…（前略）
-> 	if [ "$USER" == "" ]; then
-> 	        if [ -f /opt/bin/dkc.boot ]; then
-> 	                /opt/bin/dkc.boot
-> 	        fi
-> 	        /etc/init.d/ssh start
-> 	else
-> 	        if [ -f /opt/bin/dkc.bash ]; then
-> 	                source /opt/bin/dkc.bash
-> 	        fi
-> 	fi
+> 		…（前略）
+> 		if [ "$USER" == "" ]; then
+> 		        if [ -f /opt/bin/dkc.boot ]; then
+> 		                /opt/bin/dkc.boot
+> 		        fi
+> 		        /etc/init.d/ssh start
+> 		else
+> 		        if [ -f /opt/bin/dkc.bash ]; then
+> 		                source /opt/bin/dkc.bash
+> 		        fi
+> 		fi
 
 #### 05-040、開始進行自動清除已用不到的軟體，以及手動刪除用不到的的檔案。
 
@@ -925,8 +925,8 @@ $ sudo mkdir -p /opt/bin
 $ sudo vim /opt/bin/dkc.boot
 ```
 
-> 	#!/bin/bash
-> 	touch /tmp/dkc.boot
+> 		#!/bin/bash
+> 		touch /tmp/dkc.boot
 
 #### 06-008、編輯「/opt/bin/dkc.bash」檔。
 
@@ -934,8 +934,8 @@ $ sudo vim /opt/bin/dkc.boot
 $ sudo vim /opt/bin/dkc.bash
 ```
 
-> 	#!/bin/bash
-> 	export DKCBASH=OK
+> 		#!/bin/bash
+> 		export DKCBASH=OK
 
 #### 06-009、開通 /opt 資料夾的權限。
 

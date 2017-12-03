@@ -156,22 +156,22 @@ $ sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; sudo sync; s
 $ sudo vim /etc/sudoers
 ```
 
-> 	…（前略）
-> 	# Allow members of group sudo to execute any command
-> 	%sudo   ALL=(ALL:ALL) ALL
-> 
-> 	# See sudoers(5) for more information on "#include" directives:
-> 	…（後略）
+> 		…（前略）
+> 		# Allow members of group sudo to execute any command
+> 		%sudo   ALL=(ALL:ALL) ALL
+> 	
+> 		# See sudoers(5) for more information on "#include" directives:
+> 		…（後略）
 > 
 > ↑ 第 26 列修改成 ↓
 > 
-> 	…（前略）
-> 	# Allow members of group sudo to execute any command
-> 	#%sudo      ALL=(ALL:ALL) ALL
-> 	%sudo      ALL=(ALL:ALL) NOPASSWD:ALL
-> 	
-> 	# See sudoers(5) for more information on "#include" directives:
-> 	…（後略）
+> 		…（前略）
+> 		# Allow members of group sudo to execute any command
+> 		#%sudo      ALL=(ALL:ALL) ALL
+> 		%sudo      ALL=(ALL:ALL) NOPASSWD:ALL
+> 		
+> 		# See sudoers(5) for more information on "#include" directives:
+> 		…（後略）
 
 #### 03-002、安裝此 Ubuntu VM 所需的基本套件：包含 SSH 遠端程式、下載程式、文字編輯軟體、網路除錯工具、系統工具、Scala 語言、Python 語言。
 * 【install】：從網路上下載並安裝指定的最新套件。
@@ -354,27 +354,27 @@ $ locale -a
 $ sudo vim /etc/ssh/sshd_config
 ```
 
-> 	…（上略）
-> 	# Authentication:
-> 	LoginGraceTime 120
-> 	PermitRootLogin prohibit-password
-> 	StrictModes yes
-> 	…（中略）
-> 	UsePAM yes
+> 		…（上略）
+> 		# Authentication:
+> 		LoginGraceTime 120
+> 		PermitRootLogin prohibit-password
+> 		StrictModes yes
+> 		…（中略）
+> 		UsePAM yes
 > 	
 > ↑ 修改第 28 列，以及在文件最下方增加內容 ↓
 > 
-> 	…（上略）
-> 	# Authentication:
-> 	LoginGraceTime 120
-> 	#PermitRootLogin prohibit-password
-> 	PermitRootLogin no
-> 	StrictModes yes
-> 	…（中略）
-> 	UsePAM yes
-> 	
-> 	PermitUserEnvironment yes
-> 	UseDNS no
+> 		…（上略）
+> 		# Authentication:
+> 		LoginGraceTime 120
+> 		#PermitRootLogin prohibit-password
+> 		PermitRootLogin no
+> 		StrictModes yes
+> 		…（中略）
+> 		UsePAM yes
+> 		
+> 		PermitUserEnvironment yes
+> 		UseDNS no
 
 #### 07-002、接下來進行 SSH Client 設置，編輯「/etc/ssh/ssh_config」檔。
 * 【StrictHostKeyChecking】：從其他裝置 SSH 遠端至本機器時，自動儲存憑證前是否詢問連入者，這邊為【no】。
@@ -495,22 +495,22 @@ $ ls -al ~/.ssh
 $ sudo vim /etc/hosts
 ```
 
-> 	127.0.0.1       localhost
-> 	127.0.1.1       ubuntu-virtual-machine
-> 	
-> 	# The following lines are desirable for IPv6 capable hosts
-> 	::1     ip6-localhost ip6-loopback
-> 	…（後略）
+> 		127.0.0.1       localhost
+> 		127.0.1.1       ubuntu-virtual-machine
+> 		
+> 		# The following lines are desirable for IPv6 capable hosts
+> 		::1     ip6-localhost ip6-loopback
+> 		…（後略）
 > 
 > ↑ 第 3 列修改成 ↓
 > 
-> 	127.0.0.1       localhost
-> 	127.0.1.1       ubuntu-virtual-machine
-> 	192.168.206.10  master
-> 	
-> 	# The following lines are desirable for IPv6 capable hosts
-> 	::1     ip6-localhost ip6-loopback
-> 	…（後略）
+> 		127.0.0.1       localhost
+> 		127.0.1.1       ubuntu-virtual-machine
+> 		192.168.206.10  master
+> 		
+> 		# The following lines are desirable for IPv6 capable hosts
+> 		::1     ip6-localhost ip6-loopback
+> 		…（後略）
 
 #### 08-002、透過 SSH 遠端自己，來測試可正確將 master 解析至指定 IP，以及測試可以不需密碼進行 SSH 連線。測試無誤後使用 ```$ exit``` 指令退出。
 
@@ -648,13 +648,13 @@ $ echo "master" > /opt/hadoop/etc/hadoop/yarn.include
 $ sudo vim /etc/bash.bashrc
 ```
 
-> 	…（前略）
-> 	if [ -f /opt/bin/vm.boot ]; then
-> 	    /opt/bin/vm.boot
-> 	fi
-> 	if [ -f /opt/bin/vm.bash ]; then
-> 	    source /opt/bin/vm.bash
-> 	fi
+> 		…（前略）
+> 		if [ -f /opt/bin/vm.boot ]; then
+> 		    /opt/bin/vm.boot
+> 		fi
+> 		if [ -f /opt/bin/vm.bash ]; then
+> 		    source /opt/bin/vm.bash
+> 		fi
 
 #### 10-002、上述有設置 vm.bash 及 vm.boot 檔，現在要針對此二檔進行撰寫。
 * 「/opt/bin/vm.bash」檔的目的是設置環境變數，可以讓相關的軟體會根據變數的內容而有對映的動作。
@@ -1307,16 +1307,16 @@ $ cp -pRf /opt/spark.conf.template/* /opt/spark/conf
 $ sudo vim /etc/hosts
 ```
 
-> 	127.0.0.1       localhost
-> 	127.0.1.1       ubuntu-virtual-machine
-> 	192.168.206.10  master
-> 	192.168.206.11  data1
-> 	192.168.206.12  data2
-> 	192.168.206.13  data3
-> 	
-> 	# The following lines are desirable for IPv6 capable hosts
-> 	::1     ip6-localhost ip6-loopback
-> 	…（後略）
+> 		127.0.0.1       localhost
+> 		127.0.1.1       ubuntu-virtual-machine
+> 		192.168.206.10  master
+> 		192.168.206.11  data1
+> 		192.168.206.12  data2
+> 		192.168.206.13  data3
+> 		
+> 		# The following lines are desirable for IPv6 capable hosts
+> 		::1     ip6-localhost ip6-loopback
+> 		…（後略）
 
 #### 14-003、關閉 Ubuntu 防火牆。
 * 多個 Hadoop 主機會使用多個網路連接埠來進行溝通，為了簡化操作，故將防火牆關閉。
